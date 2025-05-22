@@ -5,5 +5,5 @@ storeRouter.get('/stores', getStores);
 storeRouter.post('/add-store', createStore);
 storeRouter.get('/store/:id', getStoreById);
 storeRouter.post('/store/rating', saveStoreRating);
-storeRouter.get('/store/rating/:id', getStoreRating);
+storeRouter.get('/store_rating', getStoreRating)
 export default storeRouter

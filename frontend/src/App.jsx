@@ -1,33 +1,18 @@
-import { useEffect, useState } from "react";
-import Footer from "./components/Footer/Footer";
-import Header from "./components/Header/Header";
-import AdminPanel from "./components/pages/Admin-panel";
-import { Outlet } from "react-router-dom";
-
+import React, { Suspense } from 'react'
+import Loading from './components/pages/Loading'
+const Admin_layout = React.lazy(() => import('./components/Layouts/Admin_layout'))
+const User_layout = React.lazy(() => import('./components/Layouts/User_layout'))
 const App = () => {
-  const [role, setRole] = useState(null);
-  const handleRole = () => {
-    const getRole = localStorage.getItem("role");
-    setRole(getRole);
-  };
-  useEffect(() => {
-    handleRole();
-  }, []);
-  if (role === null) {
-    return (
-      <div className="min-h-screen text-3xl flex justify-center items-center">
-        Loading...
-      </div>
-    );
-  }
+  const role = localStorage.getItem('role') === 'admin' ? 'admin' : 'user';
   return (
-    <div>
-      {role === "admin" ? <AdminPanel /> : <Header />}
-      {role === "user"  && <Outlet />}
-      {role === "owner"  && <Outlet />}
+    <>
+      <Suspense fallback={<Loading />}>
+        {role === 'admin' ? <Admin_layout/> : <User_layout />}
+        {role === 'owner' && <User_layout />}
 
-      <Footer />
-    </div>
-  );
-};
-export default App;
+      </Suspense>
+    </>
+  )
+}
+
+export default App

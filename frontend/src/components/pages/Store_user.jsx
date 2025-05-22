@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 const Store_user = () => {
   const url = import.meta.env.VITE_API_BACKEND;
   const [stores, setStores] = React.useState([]);
+  const [store, setStore] = React.useState([]);
+
   const [loading, setLoading] = React.useState(true);
   const handleReview = async (store_id) => {
     try {
@@ -18,10 +20,11 @@ const Store_user = () => {
   const handleFetch = async () => {
     try {
       const response = await axios.get(`${url}/api/stores`);
-      const res = await axios.get(`${url}/api/store`);
+      const res = await axios.get(`${url}/api/store_rating`);
       setStores(response.data);
       console.log(response.data);
-      console.log(response.data);
+      setStore(res.data.data);
+      console.log(res.data.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching stores:", error);
@@ -34,29 +37,33 @@ const Store_user = () => {
   }, []);
   return (
     <div>
-      <div className="p-6 min-h-screen grid grid-cols-3 gap-5 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+      <div className="p-4 sm:p-6 min-h-screen grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
         {stores.map((store, index) => (
           <div
             key={index}
-            className="border border-gray-700 rounded-lg shadow-lg p-4 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-700"
+            className="border border-gray-700 rounded-lg shadow-lg p-4 bg-gradient-to-b from-gray-800 via-gray-900 to-gray-700 "
           >
             <Link to={`/home/store/${store?.store_id}`}>
-             <div className="mb-2">
-              <span className="text-gray-300 font-semibold">Store Name: </span>
-              <span className="text-blue-400 text-lg">{store.store_name}</span>
-            </div>
-            <div className="mb-2">
-              <span className="text-gray-300 font-semibold">Email: </span>
-              <span className="text-purple-400 text-lg">{store.email}</span>
-            </div>
-            <div>
-              <span className="text-gray-300 font-semibold">Address: </span>
-              <span className="text-gray-200 text-lg">{store.address}</span>
-            </div>
+              <div className="mb-2">
+                <span className="text-gray-300 font-semibold">Store Name: </span>
+                <span className="text-blue-400 text-lg">{store.store_name}</span>
+              </div>
+              <div className="mb-2">
+                <span className="text-gray-300 font-semibold">Email: </span>
+                <span className="text-purple-400 text-lg">{store.email}</span>
+              </div>
+              <div>
+                <span className="text-gray-300 font-semibold">Address: </span>
+                <span className="text-gray-200 text-lg">{store.address}</span>
+              </div>
+              <div>
+                <span className="text-gray-300 font-semibold">Rating: </span>
+                <span className="text-gray-200 text-lg">
+                 
+                </span>
+              </div>
             </Link>
           </div>
-          
-           
         ))}
       </div>
     </div>

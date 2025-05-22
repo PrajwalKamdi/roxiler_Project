@@ -28,19 +28,19 @@ const Store = () => {
     setFormData({ ...formData, [name]: value });
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
       <form
         onSubmit={handleSubmit}
-        className="bg-gradient-to-br from-white/90 via-gray-100/90 to-gray-200/90 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-300"
+        className="bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-700/90 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700"
       >
-        <h2 className="text-3xl font-bold mb-6 text-gray-900 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+        <h2 className="text-3xl font-bold mb-6 text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text">
           Store Form
         </h2>
 
         <div className="mb-5">
           <label
             htmlFor="name"
-            className="block text-gray-700 font-semibold mb-2"
+            className="block text-gray-200 font-semibold mb-2"
           >
             Name
           </label>
@@ -50,7 +50,7 @@ const Store = () => {
             name="store_name"
             value={formData.store_name}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gradient-to-r from-gray-50 to-gray-200"
+            className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
             placeholder="Enter your name"
           />
         </div>
@@ -58,7 +58,7 @@ const Store = () => {
         <div className="mb-5">
           <label
             htmlFor="email"
-            className="block text-gray-700 font-semibold mb-2"
+            className="block text-gray-200 font-semibold mb-2"
           >
             Email
           </label>
@@ -68,7 +68,7 @@ const Store = () => {
             name="email"
             value={formData.email}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-400 bg-gradient-to-r from-gray-50 to-gray-200"
+            className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
             placeholder="Enter your email"
           />
         </div>
@@ -76,7 +76,7 @@ const Store = () => {
         <div className="mb-6">
           <label
             htmlFor="address"
-            className="block text-gray-700 font-semibold mb-2"
+            className="block text-gray-200 font-semibold mb-2"
           >
             Address
           </label>
@@ -85,7 +85,7 @@ const Store = () => {
             name="address"
             value={formData.address}
             onChange={handleChange}
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 bg-gradient-to-r from-gray-50 to-gray-200"
+            className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
             placeholder="Enter your address"
             rows="3"
           ></textarea>
@@ -93,12 +93,12 @@ const Store = () => {
 
         <button
           type="submit"
-          className="w-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 text-white py-2 px-4 rounded-lg hover:from-blue-600 hover:via-purple-600 hover:to-pink-600 transition duration-200 font-semibold shadow-lg"
+          className="w-full bg-gradient-to-r from-blue-700 via-purple-700 to-indigo-700 text-white py-2 px-4 rounded-lg hover:from-blue-800 hover:via-purple-800 hover:to-indigo-500 transition duration-200 font-semibold shadow-lg"
         >
           Submit
         </button>
       </form>
-      <ToastContainer />
+      <ToastContainer theme="dark" />
     </div>
   );
 };

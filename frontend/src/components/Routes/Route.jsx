@@ -25,12 +25,10 @@ export const router = createBrowserRouter(
         path="/home"
         element={
           <ProtectedRoute>
-            {" "}
             <App />
           </ProtectedRoute>
         }
       >
-        <Route path="dashboard" element={<Dashboard />} />
         <Route path="" element={<Dashboard />} />
         <Route path="store" element={<Store />} />
         <Route path="store-list" element={<StoreList />} />
@@ -39,8 +37,8 @@ export const router = createBrowserRouter(
         <Route path="admin-users" element={<AdminUsers />} />
         <Route path="profile" element={<Profile />} />
         <Route path="add-store" element={<Store />} />
-        <Route path="add-user" element={<Register />} />
-        <Route path="add-admin" element={<Register />} />
+        <Route path="add-user" element={<Register name ={"User"} />} />
+        <Route path="add-admin" element={<Register name={"Admin"} />} />
         <Route path="/home/store/:store_id" element={<Single_Store />} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>

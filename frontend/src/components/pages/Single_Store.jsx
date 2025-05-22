@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { isError, isSuccess } from "../toast/Toast";
 const Single_Store = () => {
   const { store_id } = useParams();
   const url = import.meta.env.VITE_API_BACKEND;
@@ -9,7 +10,7 @@ const Single_Store = () => {
   const [err, setErr] = React.useState("");
   const [storeRating, setStoreRating] = React.useState({
     store_id: store_id,
-    user_name: localStorage.getItem("user_name"),
+    user_name: localStorage.getItem("username"),
     rating: 0,
     review: "",
   });
@@ -40,11 +41,12 @@ const Single_Store = () => {
         review: "",
         rating: 0,
       });
-      alert("Review submitted successfully");
+      isSuccess("Review submitted successfully")
     }
     catch (error) {
       console.error("Error submitting review:", error);
       setErr("Error submitting review:", error);
+      isError("Error submitting review:", error);
     }
   };
   useEffect(() => {

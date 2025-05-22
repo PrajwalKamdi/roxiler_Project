@@ -11,18 +11,10 @@ const Header = () => {
     <div>
       <header className="bg-gray-800 text-white">
         <nav className="container mx-auto flex justify-between items-center p-4">
-          <Link to="dashboard" className="text-2xl font-bold text-blue-400">
+          <Link to="" className="text-2xl font-bold text-blue-400">
             Roxiler System
           </Link>
           <ul className="flex gap-10">
-            {role === "owner" && (
-              <li>
-                <NavLink to="dashboard" className="hover:text-gray-400">
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
-
             <li>
               <NavLink to="available-store" className="hover:text-gray-400">
                 Store List
@@ -35,7 +27,7 @@ const Header = () => {
                 </NavLink>
               )}
             </li>
-           
+
             <li>
               <NavLink to="profile" className="hover:text-gray-400">
                 {localStorage.getItem("username")}

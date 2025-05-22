@@ -18,29 +18,29 @@ const Dashboard = () => {
     handleAPi();
   }, []);
   return (
-    <div className="min-h-screen flex bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
-        {/* <Sidebar/> */}
+    <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+      {/* <Sidebar/> */}
       
       {/* Main Content */}
-      <div className="flex-1 p-6 space-y-5">
+      <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-5">
         <div className="text-gray-200">
-          <h1 className="text-3xl font-bold">Welcome to the Dashboard</h1>
-          <p className="mt-4 text-gray-200">
+          <h1 className="text-xl md:text-3xl font-bold">Welcome to the Dashboard</h1>
+          <p className="mt-2 text-sm md:text-base md:mt-4 text-gray-200">
             Select an option from the sidebar to get started.
           </p>
         </div>
-        <div className="flex gap-10">
-          <div className="p-5 shadow bg-gray-200 shadow-gray-300 w-1/3 flex flex-col">
-            <strong className="text-gray-700">Total Users</strong>
-            <strong className="text-blue-500 text-xl">{userCount}</strong>
+        <div className="flex flex-col md:flex-row gap-4 md:gap-10">
+          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
+            <strong className="text-gray-700 text-base md:text-lg">Total Users</strong>
+            <strong className="text-blue-500 text-lg md:text-xl">{userCount}</strong>
           </div>
-          <div className="p-5 shadow bg-gray-200 shadow-gray-300 w-1/3 flex flex-col">
-            <strong className="text-gray-700">Total Store</strong>
-            <strong className="text-green-500 text-xl">{storeCount}</strong>
+          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
+            <strong className="text-gray-700 text-base md:text-lg">Total Store</strong>
+            <strong className="text-green-500 text-lg md:text-xl">{storeCount}</strong>
           </div>
-          <div className="p-5 shadow bg-gray-200 shadow-gray-300 w-1/3 flex flex-col">
-            <strong className="text-gray-700">Total Rating</strong>
-            <strong className="text-purple-500 text-xl">100</strong>
+          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
+            <strong className="text-gray-700 text-base md:text-lg">Total Rating</strong>
+            <strong className="text-purple-500 text-lg md:text-xl">100</strong>
           </div>
         </div>
       </div>

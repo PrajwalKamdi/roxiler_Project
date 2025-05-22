@@ -1,20 +1,13 @@
 import React, { useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import App from "../../App";
 
-const ProtectedRoute = ({ children }) => {
-  const [log, setLog] = React.useState(null);
-  // console.log(localStorage.getItem("isLoggedIn"));
-  const handleLog = () => {
-    const isLoggedIn = localStorage.getItem("isLoggedIn");
-    setLog(isLoggedIn === "true");
-  };
-  useEffect(() => {
-    handleLog();
-  }, []);
-  if(log === null) {
-    return <div>Loading...</div>;
+const ProtectedRoute = () => {
+  const isLoggedIn = localStorage.getItem("isLoggedIn") === "true";
+  if (!isLoggedIn) {
+    return <Navigate to={"/"} />;
   }
-  return log  ? children : <Navigate to={"/"} />;
+  return <App />;
 };
 
 export default ProtectedRoute;

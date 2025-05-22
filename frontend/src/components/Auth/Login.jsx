@@ -42,9 +42,9 @@ const Login = () => {
   };
 
   return (
-    <div className="flex bg-gray-200 items-center justify-center min-h-screen ">
+    <div className="flex bg-gray-200 items-center justify-center min-h-screen p-5 md:p-0">
       <div className="w-full max-w-md p-8 bg-white rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+        <h2 className="text-xl md:text-2xl  font-bold text-center text-gray-800 mb-6">
           Login
         </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -61,7 +61,7 @@ const Login = () => {
               name="email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 shadow-lg  rounded-lg border"
+              className="w-full px-4 py-2 mt-1 shadow-lg  rounded-lg border text-sm md:text-base"
               placeholder="Enter your email"
               required
             />
@@ -79,7 +79,7 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              className="w-full px-4 py-2 mt-1 border rounded-lg"
+              className="w-full px-4 py-2 mt-1 border rounded-lg text-sm md:text-base"
               placeholder="Enter your password"
               required
             />
@@ -87,12 +87,12 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"
           >
             Login
           </button>
           <div className="flex gap-2 text-sm">
-            <p>Don't have account?</p>
+            <p className="text-sm md:text-base">Don't have account?</p>
             <Link
               to="/register"
               className="text-sky-700 underline underline-offset-2"

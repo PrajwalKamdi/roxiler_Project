@@ -12,7 +12,7 @@ const Profile = () => {
   };
   return (
     <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-gray-700 to-gray-300">
-      <div className="bg-gradient-to-br from-white via-gray-100 to-gray-300 shadow-2xl rounded-2xl p-8 w-96">
+      <div className="bg-gradient-to-br from-white via-gray-100 to-gray-300 shadow-2xl rounded-2xl lg:p-8 px-4 py-6">
         <h2 className="text-2xl font-bold mb-6 text-center text-gray-800">Profile</h2>
         <div className="mb-4">
           <label className="block text-gray-700 font-semibold mb-2">Name</label>

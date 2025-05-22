@@ -21,10 +21,6 @@ const User = () => {
     fetchUsers();
   }, []);
 
-  if (loading)
-    return (
-      <div className="text-center mt-10 min-h-screen text-2xl bg-gray-800 ">Loading...</div>
-    );
   if (error)
     return (
       <div className="text-center mt-10 text-red-500 min-h-screen text-xl">

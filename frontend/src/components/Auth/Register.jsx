@@ -3,9 +3,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { isSuccess, isWarn } from "../toast/Toast";
-const Register = () => {
+const Register = ({ name }) => {
   const navigate = useNavigate();
   const url = import.meta.env.VITE_API_BACKEND;
+  console.log(name);
   const [formData, setFormData] = useState({
     name: "",
     address: "",
@@ -37,12 +38,20 @@ const Register = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-700">
+    <div className="flex flex-col justify-center items-center min-h-screen bg-gradient-to-br from-gray-900 via-indigo-900 to-gray-700">
+      <h1 className="mt-4 mb-4">
+          <span className="text-3xl font-bold mb-6 text-center text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400">
+            {name} Register{" "}
+          </span>
+        </h1>
       <form
         onSubmit={handleSubmit}
-        className="bg-gradient-to-br from-white/90 via-indigo-100 to-gray-200 p-8 rounded-xl shadow-2xl w-full max-w-md border border-indigo-200"
+        className="bg-gradient-to-br from-white/90 via-indigo-100 to-gray-200 p-8 rounded-xl shadow-2xl w-full max-w-md border border-indigo-200 mb-5"
       >
-        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-800 drop-shadow">Register</h2>
+        
+        <h2 className="text-3xl font-bold mb-6 text-center text-indigo-800 drop-shadow">
+          Register Form
+        </h2>
         <div className="mb-4">
           <label
             htmlFor="name"
