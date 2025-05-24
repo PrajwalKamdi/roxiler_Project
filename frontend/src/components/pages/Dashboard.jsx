@@ -1,48 +1,115 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { FaComments, FaStar, FaStore } from "react-icons/fa";
 
 const Dashboard = () => {
   const url = import.meta.env.VITE_API_BACKEND;
   const [userCount, setUserCount] = useState(0);
-  const [storeCount, setStoreCount] = useState(0);
+  const [storeCount, setStoreCount] = useState([]);
+  const [storeRating, setStoreRating] = useState(0);
   const handleAPi = async () => {
-    const response = await axios.get(`${url}/api/stores`);
-    const res = await axios.get(`${url}/api/users`);
-    console.log(response.data.length);
-    console.log(res.data.result.length)
-    // console.log(res.data.result);
+    const token = localStorage.getItem("token");
+    const response = await axios.get(`${url}/api/stores`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const res = await axios.get(`${url}/api/users`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const ress = await axios.get(`${url}/api/store_rating`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const rating_count = ress.data.data.reduce(
+      (pre, store) => pre + store.review_count,
+      0
+    );
     setUserCount(res.data.result.length);
-    setStoreCount(response.data.length);
-  }
+    setStoreCount(response.data);
+    setStoreRating(rating_count);
+  };
   useEffect(() => {
     handleAPi();
   }, []);
-  return (
-    <div className="min-h-screen flex flex-col md:flex-row bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
-      {/* <Sidebar/> */}
-      
-      {/* Main Content */}
-      <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-5">
-        <div className="text-gray-200">
-          <h1 className="text-xl md:text-3xl font-bold">Welcome to the Dashboard</h1>
-          <p className="mt-2 text-sm md:text-base md:mt-4 text-gray-200">
-            Select an option from the sidebar to get started.
+  const StatCard = ({ icon: Icon, label, value, color }) => (
+    <div
+      className={`flex items-center p-4 rounded-xl shadow-lg text-white ${color}`}
+    >
+      <div className="text-3xl mr-4">
+        <Icon />
+      </div>
+      <div>
+        <div className="text-lg font-bold">{value}</div>
+        <div className="text-sm">{label}</div>
+      </div>
+    </div>
+  );
+
+  const StoreCard = () => {
+    return (
+      <>
+        <div className="p-4 rounded-lg shadow-lg text-center">
+          <h2 className="text-xl font-bold text-gray-200">Store Overview</h2>
+          <p className="text-gray-400">
+            Store information will be displayed here.
           </p>
         </div>
-        <div className="flex flex-col md:flex-row gap-4 md:gap-10">
-          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
-            <strong className="text-gray-700 text-base md:text-lg">Total Users</strong>
-            <strong className="text-blue-500 text-lg md:text-xl">{userCount}</strong>
-          </div>
-          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
-            <strong className="text-gray-700 text-base md:text-lg">Total Store</strong>
-            <strong className="text-green-500 text-lg md:text-xl">{storeCount}</strong>
-          </div>
-          <div className="p-4 md:p-5 shadow bg-gray-200 shadow-gray-300 w-full md:w-1/3 flex flex-col">
-            <strong className="text-gray-700 text-base md:text-lg">Total Rating</strong>
-            <strong className="text-purple-500 text-lg md:text-xl">100</strong>
-          </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-8 p-4">
+          {storeCount.map((store)=>(
+            <div key={store.store_id} className="p-4 bg-transparent shadow-gray-100 shadow-sm rounded-md ">
+              <h1 className="text-3xl w-full font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+              {store.store_name || "Store Name"}
+            </h1>
+              <p className="mb-2 text-gray-300">
+                <span className="font-semibold text-indigo-400">Location:</span>{" "}
+                {store.address || "N/A"}
+              </p>
+              <p>{}</p>
+            </div>
+          ))}
         </div>
+       
+      </>
+    );
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col  bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700">
+      <div className=" p-4 md:p-6 space-y-4 md:space-y-5 my-5">
+        <div className="text-gray-200">
+          <h1 className="text-xl md:text-3xl text-center font-bold">
+            Welcome to the Dashboard
+          </h1>
+        
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          <StatCard
+            icon={FaStore}
+            label="Total Stores"
+            value={userCount}
+            color="bg-indigo-500"
+          />
+          <StatCard
+            icon={FaComments}
+            label="Total Reviews"
+            value={storeCount.length}
+            color="bg-pink-500"
+          />
+          <StatCard
+            icon={FaStar}
+            label="Avg Store Rating"
+            value={storeRating}
+            color="bg-yellow-500"
+          />
+        </div>
+      </div>
+      <div>
+        <StoreCard />
       </div>
     </div>
   );

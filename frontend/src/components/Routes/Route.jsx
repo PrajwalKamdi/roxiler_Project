@@ -15,6 +15,7 @@ import ProtectedRoute from "../pages/ProtectedRoute";
 import Profile from "../pages/Profile";
 import Store_user from "../pages/Store_user";
 import Single_Store from "../pages/Single_Store";
+import Forgot from "../pages/Forgot";
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
@@ -29,7 +30,7 @@ export const router = createBrowserRouter(
           </ProtectedRoute>
         }
       >
-        <Route path="" element={<Dashboard />} />
+        <Route path="" element={<Dashboard/>} />
         <Route path="store" element={<Store />} />
         <Route path="store-list" element={<StoreList />} />
         <Route path="available-store" element={<Store_user />} />
@@ -39,7 +40,8 @@ export const router = createBrowserRouter(
         <Route path="add-store" element={<Store />} />
         <Route path="add-user" element={<Register name ={"User"} />} />
         <Route path="add-admin" element={<Register name={"Admin"} />} />
-        <Route path="/home/store/:store_id" element={<Single_Store />} />
+        <Route path="store/:store_id" element={<Single_Store />} />
+        <Route path="/home/profile/forgot-password" element={<Forgot/>} />
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Route>
     </>

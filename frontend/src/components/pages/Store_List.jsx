@@ -7,10 +7,15 @@ const StoreList = () => {
   const [error, setError] = useState(null);
   const url = import.meta.env.VITE_API_BACKEND;
   const fetchStores = async () => {
+    const token = localStorage.getItem("token");
     try {
-      const response = await axios.get(`${url}/api/stores`); // Replace with your API endpoint
-      setStores(response.data);
-      console.log(response.data);
+      const response = await axios.get(`${url}/api/store_rating`, {
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      }); // Replace with your API endpoint
+      setStores(response.data.data);
+     
       setLoading(false);
     } catch (err) {
       setError("Failed to fetch stores");
@@ -61,7 +66,7 @@ const StoreList = () => {
                 <td className="px-2 sm:px-4 py-2 border-b border-r border-l break-words max-w-xs">{store.store_name}</td>
                 <td className="px-2 sm:px-4 py-2 border-b border-r border-l break-words max-w-xs">{store.email}</td>
                 <td className="px-2 sm:px-4 py-2 border-b border-r border-l break-words max-w-xs">{store.address}</td>
-                <td className="px-2 sm:px-4 py-2 border">{store.rating}</td>
+                <td className="px-2 sm:px-4 py-2 border">{(+ store.avg_rating).toFixed(1)} <span className="text-yellow-400">&#9733;</span></td>
               </tr>
             ))}
           </tbody>

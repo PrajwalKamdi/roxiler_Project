@@ -1,9 +1,10 @@
 import db from "../config/db.js";
+
 export const getStores = async (req, res) => {
   const query = "select * from stores";
   db.query(query, (err, result) => {
     if (err) {
-      console.error("Error fetching stores:", err);
+    
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json(result);
@@ -15,7 +16,7 @@ export const getStoreById = async (req, res) => {
   const query = "SELECT * FROM stores WHERE store_id = ?";
   db.query(query, [storeId], (err, result) => {
     if (err) {
-      console.error("Error fetching store:", err);
+     
       return res.status(500).json({ error: "Internal server error" });
     }
     if (result.length === 0) {
@@ -30,7 +31,7 @@ export const createStore = async (req, res) => {
     "INSERT INTO stores (store_name, email, address) VALUES (?, ?, ?)";
   db.query(query, [store_name, email, address], (err, result) => {
     if (err) {
-      console.error("Error creating store:", err);
+    
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(201).json({
@@ -45,7 +46,7 @@ export const saveStoreRating = async (req, res) => {
     "INSERT INTO store_rating (store_id, user_name, rating, review) VALUES (?, ?,?,?)";
   db.query(query, [store_id, user_name, rating, review], (err, result) => {
     if (err) {
-      console.error("Error saving store rating:", err);
+    
       return res.status(500).json({
         error: "Internal server error",
         message: err.message,
@@ -59,7 +60,20 @@ export const saveStoreRating = async (req, res) => {
 
 export const getStoreRating = async (req, res) => {
   // const storeId = req.params.id;
-  const query = "select store_id, review, avg(rating) from store_rating group by store_id,review;";
+  const query = `SELECT 
+    s.store_id,
+    s.store_name,
+    s.email,
+    s.address,
+    COALESCE(AVG(r.rating), 0) AS avg_rating,
+    COUNT(r.rating_id) AS review_count
+FROM 
+    stores s
+LEFT JOIN 
+    store_rating r ON s.store_id = r.store_id
+GROUP BY 
+    s.store_id, s.store_name, s.email, s.address;
+`;
   db.query(query, (err, result) => {
     if (err) {
       return res.status(500).json({

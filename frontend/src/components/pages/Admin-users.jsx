@@ -8,11 +8,15 @@ const AdminUsers = () => {
   const url = import.meta.env.VITE_API_BACKEND;
   const fetchUsers = async () => {
     try {
-      const response = await axios.get(`${url}/api/users-admin`); // Replace with your API endpoint
+      const token = localStorage.getItem("token");
+      const response = await axios.get(`${url}/api/users-admin`,{
+        headers:{
+          Authorization: `Bearer ${token}`,
+        }
+      }); // Replace with your API endpoint
       setUsers(response.data.result);
       setLoading(false);
     } catch (error) {
-      console.error("Error fetching users:", error);
       setLoading(false);
       setErr("Error fetching users:", error);
     }

@@ -12,7 +12,11 @@ const Store = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${url}/api/add-store`, formData);
+      const response = await axios.post(`${url}/api/add-store`, formData,{
+        headers:{
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        }
+      });
       isSuccess(response.data.message);
     } catch (error) {
       isError(error.response.data.message);
@@ -28,7 +32,7 @@ const Store = () => {
     setFormData({ ...formData, [name]: value });
   };
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
+    <div className="flex p-5 md:p-0 justify-center items-center min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-800">
       <form
         onSubmit={handleSubmit}
         className="bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-700/90 p-8 rounded-2xl shadow-2xl w-full max-w-md border border-gray-700"
@@ -51,7 +55,7 @@ const Store = () => {
             value={formData.store_name}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
-            placeholder="Enter your name"
+            placeholder="Store name"
           />
         </div>
 
@@ -69,7 +73,7 @@ const Store = () => {
             value={formData.email}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
-            placeholder="Enter your email"
+            placeholder="Store email"
           />
         </div>
 
@@ -86,7 +90,7 @@ const Store = () => {
             value={formData.address}
             onChange={handleChange}
             className="w-full px-4 py-2 border border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 bg-gradient-to-r from-gray-800 to-gray-900 text-gray-100 placeholder-gray-400"
-            placeholder="Enter your address"
+            placeholder="Store address"
             rows="3"
           ></textarea>
         </div>

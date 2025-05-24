@@ -23,7 +23,7 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         const token = localStorage.getItem("token");
         const decode = jwtDecode(token);
-        console.log(decode.role)
+       
         localStorage.setItem("role", decode.role);
         localStorage.setItem("username", decode.username);
         localStorage.setItem("email", decode.email);
@@ -38,6 +38,10 @@ const Login = () => {
       }, 1000);
     } catch (error) {
       isError(error.response.data.message);
+      setFormData({
+        email: "",
+        password: "",
+      });
     }
   };
 

@@ -4,7 +4,7 @@ export const getUsers = async (req, res) => {
   const query = 'SELECT * FROM users';
   db.query(query, (err, result) => {
     if (err) {
-      console.error('Error fetching users:', err);
+     
       return res.status(500).json({ error: 'Internal server error' });
     }
     res.status(200).json(
@@ -20,7 +20,7 @@ export const getUsersAdmin = async (req, res) => {
   const query = 'SELECT * FROM users';
   db.query(query, (err, result) => {
     if (err) {
-      console.error('Error fetching users:', err);
+    
       return res.status(500).json({ error: 'Internal server error' });
     }
     res.status(200).json(
@@ -38,7 +38,7 @@ export const createUser = async (req, res) => {
   const hashedPassword = bcrypt.hashSync(password, 10);
   db.query(query, [name, email, address, hashedPassword, role], (err, result) => {
     if (err) {
-      console.error('Error creating user:', err);
+     
       return res.status(500).json({ error: 'Internal server error' });
     }
     res.status(201).json(
@@ -54,7 +54,7 @@ export const getUserById = async (req, res) => {
   const query = 'SELECT * FROM users WHERE id = ?';
   db.query(query, [userId], (err, result) => {
     if (err) {
-      console.error('Error fetching user:', err);
+      
       return res.status(500).json({ error: 'Internal server error' });
     }
     if (result.length === 0) {
