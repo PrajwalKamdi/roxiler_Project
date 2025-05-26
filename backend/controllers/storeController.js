@@ -4,7 +4,7 @@ export const getStores = async (req, res) => {
   const query = "select * from stores";
   db.query(query, (err, result) => {
     if (err) {
-    
+
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(200).json(result);
@@ -16,7 +16,7 @@ export const getStoreById = async (req, res) => {
   const query = "SELECT * FROM stores WHERE store_id = ?";
   db.query(query, [storeId], (err, result) => {
     if (err) {
-     
+
       return res.status(500).json({ error: "Internal server error" });
     }
     if (result.length === 0) {
@@ -31,7 +31,7 @@ export const createStore = async (req, res) => {
     "INSERT INTO stores (store_name, email, address) VALUES (?, ?, ?)";
   db.query(query, [store_name, email, address], (err, result) => {
     if (err) {
-    
+
       return res.status(500).json({ error: "Internal server error" });
     }
     res.status(201).json({
@@ -46,7 +46,7 @@ export const saveStoreRating = async (req, res) => {
     "INSERT INTO store_rating (store_id, user_name, rating, review) VALUES (?, ?,?,?)";
   db.query(query, [store_id, user_name, rating, review], (err, result) => {
     if (err) {
-    
+
       return res.status(500).json({
         error: "Internal server error",
         message: err.message,
@@ -94,3 +94,21 @@ GROUP BY
     }
   });
 };
+export const getReviews = (req, res) => {
+  const {store_id} = req.params;
+
+  const query = 'select * from store_rating where store_id =?';
+  db.query(query, [store_id], (err, result) => {
+    if (err) {
+      return res.status(500).json({
+        message: err.message
+      })
+    }
+    if (result) {
+      res.status(200).json({
+        message: "rating fetch successfully",
+        result
+      })
+    }
+  })
+}

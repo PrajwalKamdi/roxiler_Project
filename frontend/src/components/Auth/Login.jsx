@@ -6,35 +6,37 @@ import { ToastContainer } from "react-toastify";
 import { jwtDecode } from "jwt-decode";
 const Login = () => {
   const navigate = useNavigate();
-  const url = import.meta.env.VITE_API_BACKEND;
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-  const [role, setRole] = useState();
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+  const tokenSetUp = (token) => {
+    const decodedToken = jwtDecode(token);
+    localStorage.setItem("token", token)
+    localStorage.setItem("role", decodedToken.role);
+    localStorage.setItem("username", decodedToken.username);
+    localStorage.setItem("email", decodedToken.email);
+    localStorage.setItem("isLoggedIn", true);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${url}/api/login`, formData);
-        localStorage.setItem("token", response.data.token);
-        const token = localStorage.getItem("token");
-        const decode = jwtDecode(token);
-       
-        localStorage.setItem("role", decode.role);
-        localStorage.setItem("username", decode.username);
-        localStorage.setItem("email", decode.email);
-        localStorage.setItem("isLoggedIn", true);
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_BACKEND}/api/login`,
+        formData
+      );
+      tokenSetUp(response.data.token);
       isSuccess(response.data.message);
       setFormData({
         email: "",
         password: "",
       });
       setTimeout(() => {
-        navigate('/home')
+        navigate("/home");
       }, 1000);
     } catch (error) {
       isError(error.response.data.message);
@@ -88,7 +90,6 @@ const Login = () => {
               required
             />
           </div>
-
           <button
             type="submit"
             className="w-full py-2 text-white bg-purple-600 rounded-lg hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 text-sm md:text-base"

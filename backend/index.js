@@ -22,5 +22,5 @@ app.use('/api', storeRouter)
 app.use('/api', userRouter)
 //server listen
 app.listen(PORT, () => {
-  console.log("server running at ");
+  console.log(`server running at ${PORT}`);
 })
